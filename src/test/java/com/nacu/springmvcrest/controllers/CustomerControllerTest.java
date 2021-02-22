@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class CustomerControllerTest {
 
-    private final Long ID = 1L;
     private final String FIRST_NAME = "Florin";
     private final String LAST_NAME = "Nacu";
 
@@ -46,8 +45,8 @@ class CustomerControllerTest {
     @Test
     void getAllCustomers() throws Exception {
         List<CustomerDTO> customers = Arrays.asList(
-                CustomerDTO.builder().id(ID).firstName(FIRST_NAME).lastName(LAST_NAME).build(),
-                CustomerDTO.builder().id(2L).firstName("Cristiano").lastName("Ronaldo").build()
+                CustomerDTO.builder().firstName(FIRST_NAME).lastName(LAST_NAME).build(),
+                CustomerDTO.builder().firstName("Cristiano").lastName("Ronaldo").build()
         );
         when(customerService.getAllCustomers()).thenReturn(customers);
 
@@ -59,7 +58,7 @@ class CustomerControllerTest {
 
     @Test
     void getCustomerById() throws Exception {
-        CustomerDTO customer = CustomerDTO.builder().id(ID).lastName(LAST_NAME).firstName(FIRST_NAME).build();
+        CustomerDTO customer = CustomerDTO.builder().lastName(LAST_NAME).firstName(FIRST_NAME).build();
         when(customerService.getCustomerById(anyLong())).thenReturn(customer);
 
         mockMvc.perform(get("/api/customers/1").contentType(MediaType.APPLICATION_JSON))

@@ -45,6 +45,8 @@ class CustomerServiceImplTest {
 
         assertEquals(2, customerDTOS.size());
         assertEquals(FIRST_NAME, customerDTOS.get(0).getFirstName());
+        assertEquals(LAST_NAME, customerDTOS.get(0).getLastName());
+        assertEquals("/api/customers/" + ID, customerDTOS.get(0).getCustomerUrl());
     }
 
     @Test
@@ -54,7 +56,6 @@ class CustomerServiceImplTest {
         when(customerRepository.findById(anyLong())).thenReturn(customerOptional);
         CustomerDTO customerDTO = customerService.getCustomerById(ID);
 
-        assertEquals(ID, customerDTO.getId());
         assertEquals(FIRST_NAME, customerDTO.getFirstName());
         assertEquals(LAST_NAME, customerDTO.getLastName());
     }

@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CustomerDTO {
 
-    private Long id;
     private String firstName;
     private String lastName;
+    private String customerUrl;
 
     @Builder
-    public CustomerDTO(Long id, String firstName, String lastName) {
-        this.id = id;
+    public CustomerDTO(String firstName, String lastName, String customerUrl) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.customerUrl = customerUrl;
     }
 }

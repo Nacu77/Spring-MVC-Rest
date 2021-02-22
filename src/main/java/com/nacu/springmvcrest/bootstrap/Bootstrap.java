@@ -24,17 +24,26 @@ public class Bootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        loadCategories();
+        loadCustomers();
+    }
+
+    private void loadCustomers() {
+        customerRepository.save(Customer.builder().firstName("Florin").lastName("Nacu").build());
+        customerRepository.save(Customer.builder().firstName("Cristiano").lastName("Ronaldo").build());
+        customerRepository.save(Customer.builder().firstName("Paulo").lastName("Dybala").build());
+
+        log.info("Customers Loaded = " + customerRepository.count());
+    }
+
+    private void loadCategories() {
         categoryRepository.save(Category.builder().name("Fruits").build());
         categoryRepository.save(Category.builder().name("Dried").build());
         categoryRepository.save(Category.builder().name("Fresh").build());
         categoryRepository.save(Category.builder().name("Exotic").build());
         categoryRepository.save(Category.builder().name("Nuts").build());
 
-        customerRepository.save(Customer.builder().firstName("Florin").lastName("Nacu").build());
-        customerRepository.save(Customer.builder().firstName("Cristiano").lastName("Ronaldo").build());
-        customerRepository.save(Customer.builder().firstName("Paulo").lastName("Dybala").build());
-
         log.info("Categories Loaded = " + categoryRepository.count());
-        log.info("Customers Loaded = " + customerRepository.count());
     }
+
 }
