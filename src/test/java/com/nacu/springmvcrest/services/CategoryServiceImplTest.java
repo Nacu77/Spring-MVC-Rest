@@ -18,8 +18,8 @@ import static org.mockito.Mockito.when;
 
 class CategoryServiceImplTest {
 
-    public static final Long ID = 2L;
-    public static final String NAME = "Jimmy";
+    private final Long ID = 2L;
+    private final String NAME = "Jimmy";
 
     CategoryService categoryService;
 
