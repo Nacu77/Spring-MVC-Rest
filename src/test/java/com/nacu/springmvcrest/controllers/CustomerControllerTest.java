@@ -1,6 +1,7 @@
 package com.nacu.springmvcrest.controllers;
 
 import com.nacu.springmvcrest.api.model.CustomerDTO;
+import com.nacu.springmvcrest.exceptions.ResourceNotFoundException;
 import com.nacu.springmvcrest.services.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,10 @@ class CustomerControllerTest {
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(customerController)
+                .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                .build();
     }
 
     @Test
@@ -67,6 +71,15 @@ class CustomerControllerTest {
         mockMvc.perform(get(BASE_URL + "/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo(FIRST_NAME)));
+    }
+
+    @Test
+    void getCustomerByIdNotFound() throws Exception {
+        when(customerService.getCustomerById(anyLong())).thenThrow(ResourceNotFoundException.class);
+
+        mockMvc.perform(get(BASE_URL + "/100")
+                    .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test

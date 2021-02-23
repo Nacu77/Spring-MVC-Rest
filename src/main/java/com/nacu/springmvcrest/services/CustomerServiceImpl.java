@@ -4,6 +4,7 @@ import com.nacu.springmvcrest.api.mapper.CustomerMapper;
 import com.nacu.springmvcrest.api.model.CustomerDTO;
 import com.nacu.springmvcrest.controllers.CustomerController;
 import com.nacu.springmvcrest.domain.Customer;
+import com.nacu.springmvcrest.exceptions.ResourceNotFoundException;
 import com.nacu.springmvcrest.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
             customerDTO.setCustomerUrl(getCustomerUrl(id));
             return customerDTO;
         }
-        throw new RuntimeException("Customer Not Found");
+        throw new ResourceNotFoundException("Customer Not Found");
     }
 
     @Override
@@ -78,7 +79,7 @@ public class CustomerServiceImpl implements CustomerService {
                     returnDTO.setCustomerUrl(getCustomerUrl(id));
                     return returnDTO;
                 })
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
