@@ -6,6 +6,7 @@ import com.nacu.springmvcrest.bootstrap.Bootstrap;
 import com.nacu.springmvcrest.domain.Customer;
 import com.nacu.springmvcrest.repositories.CategoryRepository;
 import com.nacu.springmvcrest.repositories.CustomerRepository;
+import com.nacu.springmvcrest.repositories.VendorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,17 +22,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 public class CustomerServiceImplIT {
 
-    @Autowired
-    CustomerRepository customerRepository;
-
-    @Autowired
-    CategoryRepository categoryRepository;
+    @Autowired CustomerRepository customerRepository;
+    @Autowired CategoryRepository categoryRepository;
+    @Autowired VendorRepository vendorRepository;
 
     CustomerService customerService;
 
     @BeforeEach
     void setUp() throws Exception {
-        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository);
+        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository, vendorRepository);
         bootstrap.run();
 
         customerService = new CustomerServiceImpl(customerRepository, CustomerMapper.INSTANCE);

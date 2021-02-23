@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,13 +39,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomerById(Long id) {
-        Optional<Customer> customerOptional = customerRepository.findById(id);
-        if(customerOptional.isPresent()) {
-            CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customerOptional.get());
-            customerDTO.setCustomerUrl(getCustomerUrl(id));
-            return customerDTO;
-        }
-        throw new ResourceNotFoundException("Customer Not Found");
+        return customerRepository
+                .findById(id)
+                .map(customer -> {
+                    CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
+                    customerDTO.setCustomerUrl(getCustomerUrl(customer.getId()));
+                    return customerDTO;
+                })
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override

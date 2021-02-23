@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CustomerMapperTest {
 
-    public static final Long ID = 1L;
-    public static final String FIRST_NAME = "Florin";
-    public static final String LAST_NAME = "Nacu";
+    private final Long ID = 1L;
+    private final String FIRST_NAME = "Florin";
+    private final String LAST_NAME = "Nacu";
 
     CustomerMapper customerMapper = CustomerMapper.INSTANCE;
 

@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryMapperTest {
 
-    public static final String NAME = "Joe";
-    public static final long ID = 1L;
+    private final String NAME = "Joe";
+    private final long ID = 1L;
 
     CategoryMapper categoryMapper = CategoryMapper.INSTANCE;
 
